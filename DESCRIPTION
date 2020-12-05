@@ -15,3 +15,5 @@ Config/reticulate:
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/willi3by/ambraSDKr
+BugReports: https://github.com/willi3by/ambraSDKr/issues
