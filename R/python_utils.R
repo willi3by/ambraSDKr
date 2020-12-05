@@ -1,0 +1,34 @@
+library(stringr)
+
+check_python_pkgs <- function(py_pkgs){
+  pkgs_to_install <- list()
+  for(i in 1:length(py_pkgs)){
+    have <- reticulate::py_module_available(py_pkgs[[i]])
+    if(have == FALSE){
+      pkgs_to_install <- append(pkgs_to_install, py_pkgs[[i]])
+    }
+  }
+  return(pkgs_to_install)
+}
+
+pkgs_to_install <- check_python_pkgs(c("numpy", "ambra_sdk", "os", "zipfile", "pandas", "subprocess"))
+
+install_python_pkgs <- function(pkgs_to_install){
+  if(length(pkgs_to_install) > 0 ){
+    for(i in 1:length(pkgs_to_install)){
+      if(grepl("_",pkgs_to_install[[i]]) == TRUE){pkgs_to_install[[i]] <- str_replace(pkgs_to_install[[i]], "_", "-")}
+      reticulate::py_install(pkgs_to_install[[i]], pip=TRUE)
+    }
+  } else{}
+}
+
+install_python_pkgs(pkgs_to_install)
+
+.onLoad <- function(libname, pkgname){
+  numpy <<- reticulate::import("numpy", delay_load = TRUE)
+  ambrasdk <<- reticulate::import("ambra_sdk", delay_load = TRUE)
+  os <<- reticulate::import("os", delay_load = TRUE)
+  zipfile <<- reticulate::import("zipfile", delay_load = TRUE)
+  pandas <<- reticulate::import("pandas", delay_load = TRUE)
+  subproc <<- reticulate::import("subprocess", delay_load = TRUE)
+}

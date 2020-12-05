@@ -1,0 +1,17 @@
+Package: ambraSDKr
+Type: Package
+Title: R Interface to AMBRA SDK and AMBRA Dashboard
+Version: 0.1.0
+Author: Brady Williamson <willi3by@mail.uc.edu>
+Maintainer: Brady Williamson <willi3by@mail.uc.edu>
+Description: This package provides an interface to the ambra sdk python package
+    and the creation of a dashboard using the Dash package.
+Config/reticulate:
+    list(
+      packages = list(
+        list(package = "numpy", pip = TRUE)
+      )
+    )
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
