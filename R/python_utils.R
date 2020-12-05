@@ -23,12 +23,3 @@ install_python_pkgs <- function(pkgs_to_install){
 }
 
 install_python_pkgs(pkgs_to_install)
-
-.onLoad <- function(libname, pkgname){
-  numpy <<- reticulate::import("numpy", delay_load = TRUE)
-  ambrasdk <<- reticulate::import("ambra_sdk", delay_load = TRUE)
-  os <<- reticulate::import("os", delay_load = TRUE)
-  zipfile <<- reticulate::import("zipfile", delay_load = TRUE)
-  pandas <<- reticulate::import("pandas", delay_load = TRUE)
-  subproc <<- reticulate::import("subprocess", delay_load = TRUE)
-}
