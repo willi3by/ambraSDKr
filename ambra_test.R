@@ -6,4 +6,4 @@ account <- api$Account$list()$filter_by(Ambra_filter('name', Ambra_filter_cond$e
 groups <- api$Group$list(account_id = account$uuid)$all()
 group_names_and_ids <- get_group_names_and_ids(groups)
 completed_patients <- get_completed_patients(group_names_and_ids)
-update_master_spreadsheet(path_to_master_spreadsheet, completed_patients)
+update_master_spreadsheet('//comfs1.uc.edu/Radiology/Groups/AMBRA_BackUp/Master_APRISE_spreadsheet.csv', completed_patients)

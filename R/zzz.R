@@ -1,4 +1,5 @@
 .onLoad <- function(libname, pkgname){
+  library(stringr)
   pkgs_to_install <- check_python_pkgs(c("numpy", "ambra_sdk", "os", "zipfile", "pandas", "subprocess"))
   install_python_pkgs(pkgs_to_install)
   ambrasdk <<- reticulate::import("ambra_sdk", delay_load = TRUE)
