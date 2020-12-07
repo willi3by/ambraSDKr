@@ -1,5 +1,22 @@
 # DO NOT CHANGE the "init" and "install" sections below
 
+environment:
+  NOT_CRAN: true
+  USE_RTOOLS: true
+  PATH: "%PATH%;C:\\MinGW\\bin;C:\\MinGW\\msys\\1.0;C:\\MinGW\\msys\\1.0\\bin"
+  matrix:
+    - PYTHON: "C:\\Python27"
+      RETICULATE_PYTHON: "C:\\Python27"
+    - PYTHON: "C:\\Python34"
+      RETICULATE_PYTHON: "C:\\Python34"
+    - PYTHON: "C:\\Python35"
+      RETICULATE_PYTHON: "C:\\Python35"
+    - PYTHON: "C:\\Python36"
+      RETICULATE_PYTHON: "C:\\Python36"
+
+matrix:
+  fast_finish: true
+
 # Download script file from GitHub
 init:
   ps: |
@@ -9,8 +26,6 @@ init:
 
 install:
   ps: Bootstrap
-  cmd: set PATH=C:\Python36;%PATH%
-  cmd: set RETICULATE_PYTHON=C:\Python36
 
 cache:
   - C:\RLibrary
