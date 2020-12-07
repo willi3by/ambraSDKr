@@ -1,4 +1,4 @@
-Ambra_filter <- ambrasdk$service$filtering$Filter
+Ambra_filter <-ambrasdk$service$filtering$Filter
 Ambra_filter_cond <- ambrasdk$service$filtering$FilterCondition
 
 api <- ambrasdk$api$Api$with_creds(url = 'https://access.dicomgrid.com/api/v3', username = 'willi3by@ucmail.uc.edu', password = 'OliviaandOliver20!9')

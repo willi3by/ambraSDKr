@@ -13,10 +13,5 @@ URL: https://github.com/willi3by/ambraSDKr
 BugReports: https://github.com/willi3by/ambraSDKr/issues
 Imports: 
     reticulate,
-    stringr
-Config/reticulate:
-    list(
-      packages = list(
-        list(package = "numpy", pip = TRUE)
-      )
-    )
+    stringr,
+    dplyr

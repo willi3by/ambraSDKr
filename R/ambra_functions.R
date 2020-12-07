@@ -35,7 +35,7 @@ retrieve_patient_attachment <- function(patient_schema){
 }
 
 update_master_spreadsheet <- function(path_to_master_spreadsheet, completed_patients){
-  master_df <- read.csv('') #TODO FIND PATH TO MASTER AND SEE HOW IT IS READ TO CONVERT TO DF
+  master_df <- read.csv('') # TODO FIND PATH TO MASTER AND SEE HOW IT IS READ TO CONVERT TO DF
   for(p in 1:length(completed_patients)){
     patient_schema <- completed_patients[[p]]
     if(any(patient_schema$patientid %in% master_df$Patient) == FALSE & patient_schema$attachment_count > 0){
@@ -43,5 +43,5 @@ update_master_spreadsheet <- function(path_to_master_spreadsheet, completed_pati
       master_df <- rbind(master_df, patient_df)
     }
   }
-  ##ADD SORT AND WRITE TO CSV; CHECK FOR NAs
+  # TODO ADD SORT AND WRITE TO CSV; CHECK FOR NAs
 }
