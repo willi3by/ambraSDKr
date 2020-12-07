@@ -10,7 +10,7 @@ init:
 install:
   ps: Bootstrap
   cmd: set PATH=C:\Python36;%PATH%
-  cmd: set RETICULATE_PYTHON=C:\Python36
+       set RETICULATE_PYTHON=C:\Python36
 
 cache:
   - C:\RLibrary
