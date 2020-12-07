@@ -9,7 +9,7 @@ init:
 
 install:
   ps: Bootstrap
-
+  cmd: set PATH=C:\Python33;%PATH%
 
 cache:
   - C:\RLibrary
