@@ -1,5 +1,3 @@
-library(stringr)
-
 check_python_pkgs <- function(py_pkgs){
   pkgs_to_install <- list()
   for(i in 1:length(py_pkgs)){
@@ -11,8 +9,6 @@ check_python_pkgs <- function(py_pkgs){
   return(pkgs_to_install)
 }
 
-pkgs_to_install <- check_python_pkgs(c("numpy", "ambra_sdk", "os", "zipfile", "pandas", "subprocess"))
-
 install_python_pkgs <- function(pkgs_to_install){
   if(length(pkgs_to_install) > 0 ){
     for(i in 1:length(pkgs_to_install)){
@@ -21,5 +17,3 @@ install_python_pkgs <- function(pkgs_to_install){
     }
   } else{}
 }
-
-install_python_pkgs(pkgs_to_install)
