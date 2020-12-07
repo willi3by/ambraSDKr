@@ -8,8 +8,7 @@ init:
         Import-Module '..\appveyor-tool.ps1'
 
 install:
-  - ps: Bootstrap
-    set PATH=C:\Python33;%PATH%
+  ps: Bootstrap
 
 cache:
   - C:\RLibrary
