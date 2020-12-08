@@ -14,5 +14,6 @@ BugReports: https://github.com/willi3by/ambraSDKr/issues
 Imports: 
     reticulate,
     stringr,
-    dplyr
+    dplyr,
+    shiny
 RoxygenNote: 7.1.1

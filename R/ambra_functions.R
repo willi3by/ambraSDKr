@@ -19,6 +19,25 @@ get_group_names_and_ids <- function(group_iterable){
 
 #####################################################################################################
 
+#' Function to retrieve all location names and ids for a given account namespace.
+#'
+#' @param location_iterable Ambra generated python iterable for all locations in a namespace.
+#'
+#' @return A list with the name and namespace id of each location in the account namespace.
+#' @export
+#'
+#' @examples location_names_and_ids <- get_location_names_and_ids(locations)
+
+get_location_names_and_ids <- function(location_iterable){
+
+  location_names_and_ids <- reticulate::iterate(location_iterable, function(el) { return(list(name = el[["name"]], namespace_id = el[["namespace_id"]])) })
+
+  return(location_names_and_ids)
+
+}
+
+#####################################################################################################
+
 #' Retrieves all completed patients for a given account.
 #'
 #' @param group_names_and_ids A list of lists, generated from \code{\link{get_group_names_and_ids}}.
@@ -42,6 +61,34 @@ get_completed_patients <- function(group_names_and_ids){
     all_completed_patients <- append(all_completed_patients, group_patients)
   }
   return(all_completed_patients)
+}
+
+
+#####################################################################################################
+
+#' A function to get all patients for a group or location.
+#'
+#' @param group_or_locations_names_and_ids Ambra generated python iterable for all locations or groups in a namespace.
+#'
+#' @return A list of all patients with patientid, engine_fqdn, storage_namespace, and study_uid.
+#' @export
+#'
+#' @examples all_patients <- get_all_patients(group_or_locations_names_and_ids)
+
+get_all_patients <- function(group_or_locations_names_and_ids){
+
+  all_patients <- list()
+  for(i in 1:length(group_or_locations_names_and_ids)){
+
+    patients <- api$Study$list()$filter_by(Ambra_filter("phi_namespace", Ambra_filter_cond$equals,
+                                                        group_or_locations_names_and_ids[[i]][["namespace_id"]]))$all()
+
+    patients <- reticulate::iterate(patients, function(el) { return(list(patientid = el[["patientid"]])) })
+
+    sub_list <- list(name = group_or_locations_names_and_ids[[i]]$name, patients = patients)
+    all_patients[[i]] <- sub_list
+    }
+  return(all_patients)
 }
 
 #####################################################################################################
@@ -117,3 +164,32 @@ update_master_spreadsheet <- function(path_to_master_spreadsheet, completed_pati
   master_df <- master_df[order(master_df$Patient),]
   write.csv(master_df, file=path_to_master_spreadsheet)
 }
+
+#####################################################################################################
+
+#' Function to get total patients per location from AMBRA.
+#'
+#' @param all_location_names_and_ids List of all locations and their namespace ids.
+#' @param location_list List of locations of interest to filter all locations list.
+#'
+#' @return A list of each location and how many unique patients per location.
+#' @export
+#'
+#' @examples site_numbers <- get_total_patients_per_location(location_names_and_ids, site_locations)
+
+get_total_patients_per_location <- function(all_location_names_and_ids, location_list){
+
+  filtered_location_list <- all_location_names_and_ids[which(lapply(all_location_names_and_ids, '[[', 1) %in% location_list)]
+
+  all_location_patients <- get_all_patients(filtered_location_list)
+
+  patients_per_site <- list()
+
+  for(i in 1:length(all_location_patients)){
+    uniq_patients <- unique(lapply(all_location_patients[[i]]$patients, '[[', 1))
+    patients_per_site[[i]] <- list(name = all_location_patients[[i]]$name, num_patients = length(uniq_patients))
+  }
+
+  return(patients_per_site)
+}
+
