@@ -17,19 +17,10 @@ group_names_and_ids <- get_group_names_and_ids(groups)
 completed_patients <- get_completed_patients(group_names_and_ids)
 update_master_spreadsheet('//comfs1.uc.edu/Radiology/Groups/AMBRA_BackUp/Master_APRISE_spreadsheet.csv', completed_patients)
 
-#Get locations in account.
-locations <- api$Location$list(account_id = account$uuid)$all()
-location_names_and_ids <- get_location_names_and_ids(locations)
+update_summary_statistics(account)
 
-#Get number of studies per site.
-site_locations <- list('Mercy Health Inbound Studies', 'St. Elizabeth Inbound Studies',
-                       'The Christ Hospital Inbound Studies', 'TriHealth Inbound Studies',
-                       'UC Health Inbound Studies')
 
-bin_locations <- list('1 - Not Ready', '2 - Reader Assignment', '3 - Assigned Studies',
-                      '4 - Completed Studies', '5 - Excluded Studies')
 
-site_numbers <- get_total_patients_per_location(location_names_and_ids, site_locations)
-bin_numbers <- get_total_patients_per_location(location_names_and_ids, bin_locations)
+
 
 

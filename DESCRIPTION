@@ -15,5 +15,6 @@ Imports:
     reticulate,
     stringr,
     dplyr,
-    shiny
+    shiny,
+    mongolite
 RoxygenNote: 7.1.1
