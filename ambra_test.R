@@ -15,10 +15,10 @@ group_names_and_ids <- get_group_names_and_ids(groups)
 
 #Get all completed patients for groups and update master spreadsheet.
 completed_patients <- get_completed_patients(group_names_and_ids)
-update_master_spreadsheet('//comfs1.uc.edu/Radiology/Groups/AMBRA_BackUp/Master_APRISE_spreadsheet.csv', completed_patients)
+master_df <- update_master_spreadsheet('//comfs1.uc.edu/Radiology/Groups/AMBRA_BackUp/Master_APRISE_spreadsheet.csv', completed_patients)
 
 update_summary_statistics(account)
-
+update_central_reader_stats(master_df)
 
 
 

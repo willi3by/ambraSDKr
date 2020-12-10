@@ -31,4 +31,29 @@ update_summary_statistics <- function(account){
   return(print("Databases have been successfully updated!"))
 }
 
+replace_values <- function(x, central_readers){
+  x[which(x %notin% central_readers)] <- NA
+  return(x)
+}
+
+update_central_reader_stats <- function(master_df){
+
+  central_readers <- list("DW", "AV-DW", "AV", "RSC", "MG", "TT", "LW")
+
+  cr_nums <- master_df %>%
+    select(contains("initials-of-central-reader")) %>%
+    mutate(across(everything(), ~ replace_values(., central_readers))) %>%
+    do.call(coalesce, .) %>%
+    table() %>%
+    as.data.frame()
+
+  reader_df <- data.frame(t(cr_nums$Freq))
+  names(reader_df) <- cr_nums$.
+
+  reader_stats <- mongo(collection = "ReaderStats", db = "aprise")
+  reader_stats$update(reader_df)
+
+  return(print("Databases have been successfully updated!"))
+}
+
 

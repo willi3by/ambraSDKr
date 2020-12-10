@@ -156,13 +156,14 @@ update_master_spreadsheet <- function(path_to_master_spreadsheet, completed_pati
   names(master_df) <- gsub(x = names(master_df), pattern="\\.", replacement = '-')
   for(p in 1:length(completed_patients)){
     patient_schema <- completed_patients[[p]]
-    if(any(patient_schema$patientid %in% master_df$Patient) == FALSE & patient_schema$attachment_count > 0){
+    if(any(patient_schema$patientid %in% master_df$Patient) == FALSE & patient_schema$attachments > 0){
       patient_df <- retrieve_patient_attachment(patient_schema)
       master_df <- append_patient_df(patient_df, master_df)
     }
   }
   master_df <- master_df[order(master_df$Patient),]
   write.csv(master_df, file=path_to_master_spreadsheet)
+  return(master_df)
 }
 
 #####################################################################################################
